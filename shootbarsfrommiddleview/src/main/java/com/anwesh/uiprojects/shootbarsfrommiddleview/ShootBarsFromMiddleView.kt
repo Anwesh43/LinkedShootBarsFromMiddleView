@@ -33,10 +33,10 @@ fun Canvas.drawBarsFromMiddle(scale : Float, w : Float, h : Float, paint : Paint
     val sf2 : Float = sf.divideScale(1, parts)
     for (j in 0..(bars - 1)) {
         val sf1j : Float = sf1.divideScale(j, bars)
-        val sf2j : Float = sf2.divideScale(Math.abs(j - bars / 2), bars)
+        val sf2j : Float = sf2.divideScale(Math.abs(j - bars / 2), bars / 2 + 1)
         save()
         translate(gap * j, h * (1 - sf2j))
-        drawRect(RectF(-gap * sf1j, 0f, gap, gap * sf1j), paint)
+        drawRect(RectF(0f,-gap * sf1j, gap, 0f), paint)
         restore()
     }
 }
