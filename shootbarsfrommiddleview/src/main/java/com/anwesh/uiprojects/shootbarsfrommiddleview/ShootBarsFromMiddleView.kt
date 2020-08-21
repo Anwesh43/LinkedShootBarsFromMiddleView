@@ -199,4 +199,13 @@ class ShootBarsFromMiddleView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity: Activity) : ShootBarsFromMiddleView {
+            val view : ShootBarsFromMiddleView = ShootBarsFromMiddleView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
