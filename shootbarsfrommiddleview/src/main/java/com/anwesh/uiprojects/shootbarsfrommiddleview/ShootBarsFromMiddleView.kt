@@ -174,4 +174,27 @@ class ShootBarsFromMiddleView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : ShootBarsFromMiddleView) {
+
+        private val animator : Animator = Animator(view)
+        private val sbfm : ShootBarsFromMiddle = ShootBarsFromMiddle(0)
+        private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+        fun render(canvas : Canvas) {
+            canvas.drawColor(backColor)
+            sbfm.draw(canvas, paint)
+            animator.animate {
+                sbfm.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            sbfm.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
