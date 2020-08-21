@@ -25,3 +25,25 @@ fun Int.inverse() : Float = 1f / this
 fun Float.maxScale(i : Int, n : Int) : Float = Math.max(0f, this - i * n.inverse())
 fun Float.divideScale(i : Int, n : Int) : Float = Math.min(n.inverse(), maxScale(i, n)) * n
 fun Float.sinify() : Float = Math.sin(this * Math.PI).toFloat()
+
+fun Canvas.drawBarsFromMiddle(scale : Float, w : Float, h : Float, paint : Paint) {
+    val gap : Float = w / bars
+    val sf : Float = scale.sinify()
+    val sf1 : Float = sf.divideScale(0, parts)
+    val sf2 : Float = sf.divideScale(1, parts)
+    for (j in 0..(bars - 1)) {
+        val sf1j : Float = sf1.divideScale(j, bars)
+        val sf2j : Float = sf2.divideScale(Math.abs(j - bars / 2), bars)
+        save()
+        translate(gap * j, h * (1 - sf2j))
+        drawRect(RectF(-gap * sf1j, 0f, gap, gap * sf1j), paint)
+        restore()
+    }
+}
+
+fun Canvas.drawBFMNode(i : Int, scale : Float, paint : Paint) {
+    val w : Float = width.toFloat()
+    val h : Float = height.toFloat()
+    paint.color = Color.parseColor(colors[i])
+    drawBarsFromMiddle(scale, w, h, paint)
+}
